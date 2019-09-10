@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import List from "./List";
 import GroceryForm from "./GroceryForm"
+import DeleteForm from "./DeleteForm"
 
 class App extends React.Component {
   state = { 
@@ -16,11 +17,21 @@ class App extends React.Component {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
-  }
+  };
+
   addItem = (name) => {
     const groc = { id: this.getUniqId(), name, bought: false };
-    this.setState({ grocs: [groc, ...this.state.grocs] });
+    this.setState({ grocs: this.state.grocs.filter( name ) });
   };
+
+  deleteItem = (name) => {
+    this.setState( { grocs: this.state.grocs.filter( groc => {
+      if (groc.name === name) {
+        
+      }
+    }) } )
+  }
+
   handleClick = (id) => {
     this.setState({
       grocs: this.state.grocs.map( groc => {
@@ -31,10 +42,12 @@ class App extends React.Component {
       })
     });
   };
+
   render() {
     return (
       <div>
         <GroceryForm addItem={this.addItem} />
+        <DeleteForm deleteItem={this.deleteItem} />
         <List 
           name="Grocery List" 
           grocs={this.state.grocs} 
