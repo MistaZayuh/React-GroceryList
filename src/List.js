@@ -1,12 +1,13 @@
 import React from "react";
-import App from "./App";
+import Groc from "./Groc";
 
-class List extends React.Component {
-  render() {
-    return (
-      <div>
-        
-      </div>
-    );
-  };
-};
+const List = (props) => (
+  <div>
+    <h2>{ props.name }</h2>
+    <ul>
+      { props.grocs.map( item => <Groc {...item} handleClick={props.handleClick} /> ) }
+    </ul>
+  </div>
+);
+
+export default List;
